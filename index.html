@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fabrício Soares de Sousa — Engenheiro de Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --black: #080808;
+  --dark:  #111111;
+  --card:  #161616;
+  --card2: #131313;
+  --border:#222222;
+  --white: #f0efec;
+  --muted: #888880;
+  --blue:  #4A7BF7;
+  --bdim:  #2a4a9a;
+  --red:   #E8000F;
+  --rdim:  #8a0008;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.35}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 4rem;background:rgba(8,8,8,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.12em;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--red)!important;color:var(--white)!important;padding:.42rem 1.1rem;border-radius:2px}
+.nav-cta:hover{opacity:.85}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 4rem 4rem;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-20%;right:-10%;width:55vw;height:55vw;background:radial-gradient(ellipse,rgba(74,123,247,.09) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-block;background:rgba(74,123,247,.12);border:1px solid var(--bdim);color:var(--blue);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:.32rem .85rem;border-radius:2px;margin-bottom:1.6rem;animation:fadeUp .8s ease both}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3rem,6vw,5.5rem);line-height:.93;text-transform:uppercase;margin-bottom:1.4rem;animation:fadeUp .8s .1s ease both}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero-sub{color:var(--muted);font-size:.98rem;max-width:440px;line-height:1.75;margin-bottom:2.4rem;animation:fadeUp .8s .2s ease both}
+.hero-btns{display:flex;gap:.7rem;flex-wrap:wrap;animation:fadeUp .8s .3s ease both}
+.hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:1.1rem;animation:fadeIn 1s .5s ease both}
+.stat-card{background:var(--card);border:1px solid var(--border);padding:1.3rem 1.7rem;width:255px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.stat-card.blue::before{background:var(--blue)}
+.stat-card.red::before{background:var(--red)}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;line-height:1;margin-bottom:.15rem}
+.stat-card.blue .stat-num{color:var(--blue)}
+.stat-card.red .stat-num{color:var(--red)}
+.stat-lbl{font-size:.73rem;color:var(--muted);font-weight:600}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.78rem 1.7rem;border-radius:2px;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;transition:transform .15s,opacity .15s}
+.btn:hover{transform:translateY(-2px);opacity:.88}
+.btn-red{background:var(--red);color:var(--white)}
+.btn-blue{background:var(--blue);color:var(--white)}
+.btn-out{background:transparent;color:var(--white);border:1px solid var(--border)}
+.btn-out:hover{border-color:var(--white);opacity:1}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 4rem}
+
+/* SECTIONS */
+section{padding:5.5rem 4rem}
+.stag{font-size:.68rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--blue);margin-bottom:.55rem}
+.stitle{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.4rem,4vw,3.5rem);text-transform:uppercase;line-height:.95;margin-bottom:.9rem}
+.stitle em{font-style:normal;color:var(--red)}
+.sdesc{color:var(--muted);max-width:540px;font-size:.93rem;line-height:1.75;margin-bottom:3.2rem}
+
+/* GEO */
+.geo{display:inline-flex;gap:3px;margin-bottom:1.7rem}
+.geo span{width:25px;height:25px;display:block}
+.geo span:nth-child(1){background:var(--blue);clip-path:polygon(0 0,100% 0,0 100%)}
+.geo span:nth-child(2){background:var(--bdim);clip-path:polygon(100% 0,100% 100%,0 100%)}
+.geo span:nth-child(3){background:rgba(74,123,247,.28);clip-path:polygon(50% 0,100% 100%,0 100%);margin-top:-12px}
+
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border)}
+.svc{background:var(--dark);padding:2.6rem 2.3rem;position:relative;overflow:hidden;transition:background .3s}
+.svc:hover{background:var(--card)}
+.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.svc.sr::after{background:var(--red)}
+.svc.sb::after{background:var(--blue)}
+.svc:hover::after{transform:scaleX(1)}
+.svc-num{font-family:'Bebas Neue',sans-serif;font-size:5rem;line-height:1;opacity:.055;position:absolute;top:.5rem;right:1.4rem}
+.svc-cat{font-size:.67rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.55rem}
+.sr .svc-cat{color:var(--red)}
+.sb .svc-cat{color:var(--blue)}
+.svc h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.72rem;text-transform:uppercase;line-height:1.05;margin-bottom:.9rem}
+.svc p{color:var(--muted);font-size:.86rem;line-height:1.75;margin-bottom:1.3rem}
+.svc-list{display:flex;flex-direction:column;gap:.38rem;margin-bottom:1.7rem}
+.svc-list span{font-size:.78rem;color:var(--white);opacity:.5;display:flex;align-items:center;gap:.45rem}
+.svc-list span::before{content:'→';opacity:.55}
+.badge{display:inline-block;font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.26rem .72rem;border-radius:2px;margin-bottom:1.3rem}
+.badge-red{background:rgba(232,0,15,.1);border:1px solid rgba(232,0,15,.28);color:var(--red)}
+.badge-blue{background:rgba(74,123,247,.1);border:1px solid rgba(74,123,247,.28);color:var(--blue)}
+.badge-muted{background:rgba(136,136,128,.08);border:1px solid var(--border);color:var(--muted)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start}
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.metric{background:var(--dark);padding:1.7rem 1.3rem}
+.metric-val{font-family:'Bebas Neue',sans-serif;font-size:2.3rem;color:var(--blue);line-height:1;margin-bottom:.25rem}
+.metric-val.r{color:var(--red)}
+.metric-desc{font-size:.75rem;color:var(--muted);line-height:1.4}
+.about-text h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.9rem,3vw,2.8rem);text-transform:uppercase;line-height:1;margin-bottom:1.3rem}
+.about-text h2 em{font-style:normal;color:var(--red)}
+.about-text p{color:var(--muted);font-size:.88rem;line-height:1.8;margin-bottom:.95rem}
+.skills-wrap{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.7rem}
+.skill-tag{background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.28rem .72rem;border-radius:2px;transition:border-color .2s,color .2s}
+.skill-tag:hover{border-color:var(--blue);color:var(--blue)}
+
+/* TIMELINE */
+.timeline{max-width:800px}
+.tl-item{display:grid;grid-template-columns:160px 1fr;gap:2rem;padding:2.3rem 0;border-bottom:1px solid var(--border)}
+.tl-item:last-child{border-bottom:none}
+.tl-date{font-family:'Barlow Condensed',sans-serif;font-size:.76rem;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;padding-top:.15rem}
+.tl-now{color:var(--red);font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;display:block;margin-top:.28rem}
+.tl-content h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.18rem;text-transform:uppercase;margin-bottom:.12rem}
+.tl-co{font-size:.76rem;color:var(--blue);font-weight:600;margin-bottom:.65rem}
+.tl-content p{font-size:.84rem;color:var(--muted);line-height:1.7}
+.tl-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem}
+.tl-tag{font-size:.63rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .55rem;border-radius:2px;border:1px solid var(--border);color:var(--muted)}
+
+/* CERTS */
+.cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.cert-group{background:var(--dark);padding:1.9rem 1.7rem}
+.cert-gtitle{font-size:.67rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:1px solid var(--border)}
+.cert-item{font-size:.78rem;color:var(--muted);padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.04);line-height:1.4}
+.cert-item:last-child{border-bottom:none}
+.cert-item strong{color:var(--white);font-weight:600;display:block;margin-bottom:.1rem}
+
+/* PORTFOLIO */
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border)}
+.pf-card{background:var(--dark);padding:2.4rem 2.2rem;position:relative;overflow:hidden;transition:background .3s}
+.pf-card:hover{background:var(--card)}
+.pf-feat{grid-column:span 2;background:var(--card);border-top:2px solid var(--red)}
+.pf-feat.b{border-top-color:var(--blue)}
+.pf-feat.r2{background:var(--card2);border-top-color:var(--red)}
+.pf-head{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;margin-bottom:1.1rem}
+.pf-tag{font-size:.67rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.65rem}
+.pf-tag.r{color:var(--red)}
+.pf-tag.b{color:var(--blue)}
+.pf-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;text-transform:uppercase;line-height:1.1;margin-bottom:0}
+.pf-feat h3{font-size:1.8rem}
+.pf-card>p{color:var(--muted);font-size:.86rem;line-height:1.75;margin-bottom:1.5rem}
+.pf-feats{display:grid;grid-template-columns:1fr 1fr;gap:.95rem 2rem;margin-bottom:1.7rem}
+.pf-feat-item{display:flex;gap:.75rem;align-items:flex-start}
+.pf-feat-icon{font-size:.95rem;flex-shrink:0;margin-top:.1rem}
+.pf-feat-item strong{display:block;font-size:.8rem;font-weight:700;color:var(--white);margin-bottom:.18rem;text-transform:uppercase;letter-spacing:.03em}
+.pf-feat-item span{font-size:.76rem;color:var(--muted);line-height:1.5}
+.pf-stack{display:flex;flex-wrap:wrap;gap:.38rem;margin-bottom:1.4rem}
+.pf-stack span{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .6rem;border-radius:2px}
+.pf-result{display:flex;align-items:baseline;gap:.7rem;margin-bottom:.9rem;flex-shrink:0}
+.pf-metric{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--blue);line-height:1}
+.pf-feat .pf-metric{color:var(--red);font-size:3rem}
+.pf-metric.b{color:var(--blue)!important}
+.pf-mlbl{font-size:.72rem;color:var(--muted);font-weight:600;line-height:1.3}
+
+/* CONTACT */
+.contact-sec{background:var(--dark);position:relative;overflow:hidden}
+.contact-sec::before{content:'';position:absolute;bottom:-30%;left:-10%;width:50vw;height:50vw;background:radial-gradient(ellipse,rgba(232,0,15,.055) 0%,transparent 70%);pointer-events:none}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.c-item{display:flex;align-items:flex-start;gap:1.1rem;padding:1.3rem 0;border-bottom:1px solid var(--border)}
+.c-item:last-child{border-bottom:none}
+.c-icon{font-size:1.05rem;margin-top:.1rem;flex-shrink:0}
+.c-lbl{font-size:.67rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.18rem}
+.c-val{font-family:'Barlow Condensed',sans-serif;font-size:1.02rem;font-weight:700;text-transform:uppercase}
+.c-val a{color:var(--white);text-decoration:none;transition:color .2s}
+.c-val a:hover{color:var(--red)}
+.cta-box{background:var(--card);border:1px solid var(--border);padding:2.4rem;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--blue))}
+.cta-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.05em;color:var(--white);margin:.55rem 0}
+.cta-sub{font-size:.76rem;color:var(--muted);margin-bottom:1.7rem}
+.cta-btns{display:flex;flex-direction:column;gap:.7rem}
+.cta-btns .btn{justify-content:center}
+
+/* FOOTER */
+footer{padding:1.8rem 4rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.12em}
+.f-logo span{color:var(--blue)}
+.f-copy{font-size:.72rem;color:var(--muted)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .hero,.about-grid,.contact-inner{grid-template-columns:1fr;gap:2.5rem}
+  .hero{padding:7rem 1.5rem 3rem}
+  .hero-right{align-items:flex-start}
+  section{padding:4rem 1.5rem}
+  .svc-grid,.cert-grid,.pf-grid{grid-template-columns:1fr}
+  .pf-feat,.pf-feat.b,.pf-feat.r2{grid-column:span 1}
+  .pf-feats{grid-template-columns:1fr}
+  .pf-head{flex-direction:column;gap:1rem}
+  .divider{margin:0 1.5rem}
+  footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="nav-logo">FABRÍCIO<span>.</span>SS</a>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#trajetoria">Trajetória</a></li>
+    <li><a href="#certificacoes">Certificações</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="https://www.linkedin.com/in/engmec-fabricio-soares" target="_blank">LinkedIn</a></li>
+    <li><a href="curriculo-fabricio-sousa.pdf" download>Currículo</a></li>
+    <li><a href="#contato" class="nav-cta">Fale Comigo</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div>
+    <div class="geo"><span></span><span></span><span></span></div>
+    <div class="hero-tag">Engenheiro de Analytics · Barueri, SP</div>
+    <h1>Dados que<br/><em>movem</em><br/>negócios.</h1>
+    <p class="hero-sub">
+      Analista de Qualidade em Supply Chain e BI. Professor de Exatas &amp; Inglês Técnico.
+      Mentor de carreira. Engenheiro que transforma dados em decisão.
+    </p>
+    <div class="hero-btns">
+      <a href="https://wa.me/5511914842672" target="_blank" class="btn btn-red">💬 WhatsApp</a>
+      <a href="https://www.linkedin.com/in/engmec-fabricio-soares" target="_blank" class="btn btn-blue">in LinkedIn</a>
+      <a href="curriculo-fabricio-sousa.pdf" download class="btn btn-out">↓ Currículo</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-card red">
+      <div class="stat-num">67%</div>
+      <div class="stat-lbl">Redução no tempo de processamento de pagamentos</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-num">50%</div>
+      <div class="stat-lbl">Inconsistências eliminadas em auditoria de fretes</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-num">80%</div>
+      <div class="stat-lbl">Redução no tempo de análise via IA Generativa</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-num">4×</div>
+      <div class="stat-lbl">Profissionais reposicionados com salto de carreira</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ SERVIÇOS ═══ -->
+<section id="servicos">
+  <div class="stag">O que faço</div>
+  <h2 class="stitle reveal">4 frentes.<br/><em>Um padrão.</em></h2>
+  <p class="sdesc reveal">Entrego resultados comprovados nas áreas que atuo. Cada frente tem histórico real por trás.</p>
+
+  <div class="svc-grid reveal">
+
+    <div class="svc sr">
+      <div class="svc-num">01</div>
+      <div class="svc-cat">Análise &amp; Inteligência de Dados</div>
+      <h3>Dados que<br/>geram decisão.</h3>
+      <p>Transformo dados brutos em inteligência acionável. Dashboards executivos em Power BI, análise de causa raiz, KPIs operacionais e automação com IA — 80% de redução no tempo analítico.</p>
+      <div class="svc-list">
+        <span>Dashboards gerenciais em Power BI (DAX/SQL)</span>
+        <span>Análise de causa raiz e planos de ação (PDCA)</span>
+        <span>Definição e monitoramento de KPIs</span>
+        <span>Integração e modelagem de bases de dados</span>
+        <span>Automação com Gemini &amp; Claude — 80% menos tempo</span>
+        <span>Supply Chain e Logística orientados a dados</span>
+      </div>
+      <a href="https://wa.me/5511914842672?text=Oi%20Fabricio%2C%20tenho%20interesse%20em%20análise%20de%20dados!" target="_blank" class="btn btn-red" style="font-size:.74rem;padding:.62rem 1.3rem">Fale Comigo</a>
+    </div>
+
+    <div class="svc sb">
+      <div class="svc-num">02</div>
+      <div class="svc-cat">Aulas Particulares</div>
+      <h3>Exatas &amp;<br/>Inglês Técnico.</h3>
+      <p>Fui monitor acadêmico de duas disciplinas na UFPI. Já ensinei alunos que hoje são médicos e empresários. Ensinar não é decorar — é construir raciocínio e despertar curiosidade.</p>
+      <div class="svc-list">
+        <span>Matemática, Física e Química — todos os níveis</span>
+        <span>Inglês Técnico para Engenharia e TI</span>
+        <span>Ex-monitor acadêmico em 2 disciplinas na UFPI</span>
+        <span>Alunos que se tornaram médicos e empresários</span>
+        <span>Online ou presencial · foco em entendimento real</span>
+      </div>
+      <div class="badge badge-blue">✦ 1ª Aula Experimental Gratuita</div><br/>
+      <a href="https://wa.me/5511914842672?text=Oi%20Fabricio%2C%20quero%20agendar%20minha%20aula%20experimental%20gratuita!" target="_blank" class="btn btn-blue" style="font-size:.74rem;padding:.62rem 1.3rem">Agendar Aula Grátis</a>
+    </div>
+
+    <div class="svc sr">
+      <div class="svc-num">03</div>
+      <div class="svc-cat">Mentoria de Carreira</div>
+      <h3>Plano de carreira<br/>&amp; LinkedIn.</h3>
+      <p>Estruturei currículo e LinkedIn de 4 profissionais que tiveram salto real — além de minha própria recolocação. Sei como as empresas contratam porque aprendi do jeito difícil.</p>
+      <div class="svc-list">
+        <span>Reformulação completa de currículo (ATS)</span>
+        <span>Otimização estratégica do LinkedIn</span>
+        <span>Plano de carreira e posicionamento executivo</span>
+        <span>Preparação para processos seletivos</span>
+        <span>4 profissionais com salto comprovado de carreira</span>
+      </div>
+      <a href="https://wa.me/5511914842672?text=Oi%20Fabricio%2C%20quero%20saber%20mais%20sobre%20a%20mentoria%20de%20carreira!" target="_blank" class="btn btn-red" style="font-size:.74rem;padding:.62rem 1.3rem">Fale Comigo</a>
+    </div>
+
+    <div class="svc sb">
+      <div class="svc-num">04</div>
+      <div class="svc-cat">Projetos de Engenharia</div>
+      <h3>Projetos técnicos<br/>&amp; normas.</h3>
+      <p>Frente em estruturação. Foco em projetos de prevenção e combate a incêndio, conformidade com normas regulamentadoras e pareceres técnicos com base em Engenharia Mecânica e Lean Six Sigma.</p>
+      <div class="svc-list">
+        <span>Projetos de incêndio e normas técnicas</span>
+        <span>Pareceres técnicos e analíticos</span>
+        <span>NR-05 (CIPA) · NR-23 (Brigada de Incêndio)</span>
+        <span>Lean Six Sigma aplicado a processos industriais</span>
+        <span>Mapeamento AS-IS / TO-BE (BPMN)</span>
+      </div>
+      <div class="badge badge-muted">Em Estruturação · Em Breve</div><br/>
+      <a href="https://wa.me/5511914842672?text=Oi%20Fabricio%2C%20tenho%20interesse%20em%20projetos%20de%20engenharia!" target="_blank" class="btn btn-out" style="font-size:.74rem;padding:.62rem 1.3rem">Entrar na Lista</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ SOBRE ═══ -->
+<section id="sobre">
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="stag">Impacto em números</div>
+      <div class="metrics-grid">
+        <div class="metric"><div class="metric-val r">67%</div><div class="metric-desc">Redução no processamento de pagamentos</div></div>
+        <div class="metric"><div class="metric-val">50%</div><div class="metric-desc">Inconsistências eliminadas — auditoria Lean</div></div>
+        <div class="metric"><div class="metric-val r">80%</div><div class="metric-desc">Redução no tempo analítico via IA Generativa</div></div>
+        <div class="metric"><div class="metric-val">22%</div><div class="metric-desc">Melhoria no lead time de distribuição</div></div>
+        <div class="metric"><div class="metric-val r">25+</div><div class="metric-desc">Novas parcerias logísticas abertas</div></div>
+        <div class="metric"><div class="metric-val">4×</div><div class="metric-desc">Profissionais reposicionados com sucesso</div></div>
+      </div>
+    </div>
+
+    <div class="about-text reveal">
+      <h2>Engenheiro que<br/>faz dados <em>falarem.</em></h2>
+      <p>Formado em Engenharia Mecânica pela UFPI, atuo como Analista de Qualidade Bilíngue na J&amp;T Express — uma das maiores redes logísticas do mundo — gerindo KPIs em 23 Sorting Centers nacionais.</p>
+      <p>Especialista em Business Intelligence aplicado a Supply Chain: estruturo dados, construo dashboards em Power BI e integro Inteligência Artificial generativa (Gemini &amp; Claude) para transformar análises que levavam horas em minutos.</p>
+      <p>Fui monitor acadêmico na UFPI e já ajudei 4 profissionais a darem saltos reais de carreira. Atualmente cursando três especializações simultâneas: Gestão de Projetos, Análise de Dados e MBA em Lean Six Sigma.</p>
+      <div class="skills-wrap">
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">DAX / SQL</span>
+        <span class="skill-tag">Lean Six Sigma</span>
+        <span class="skill-tag">Scrum / Kanban</span>
+        <span class="skill-tag">BPMN</span>
+        <span class="skill-tag">Supply Chain</span>
+        <span class="skill-tag">MS Project</span>
+        <span class="skill-tag">Auditoria de Fretes</span>
+        <span class="skill-tag">KPIs</span>
+        <span class="skill-tag">PDCA</span>
+        <span class="skill-tag">IA Generativa</span>
+        <span class="skill-tag">Gemini API</span>
+        <span class="skill-tag">Claude API</span>
+        <span class="skill-tag">Inglês Avançado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ TRAJETÓRIA ═══ -->
+<section id="trajetoria">
+  <div class="stag">Trajetória</div>
+  <h2 class="stitle reveal">Experiência <em>comprovada.</em></h2>
+
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-date">Fev 2026<span class="tl-now">↑ Atual</span></div>
+      <div class="tl-content">
+        <h4>Bilingual Quality Analyst Jr</h4>
+        <div class="tl-co">J&amp;T Express Brazil LTDA — Barueri, SP</div>
+        <p>Gestão de KPIs focada em redução de extravios e avarias em malha logística com 23 Sorting Centers nacionais. Auditorias preventivas e planos PDCA para conformidade com padrões globais. Dashboards e reportes técnicos para suporte à alta gestão.</p>
+        <div class="tl-tags"><span class="tl-tag">KPIs</span><span class="tl-tag">PDCA</span><span class="tl-tag">Power BI</span><span class="tl-tag">Qualidade</span><span class="tl-tag">Bilíngue</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">Nov 2024 – Fev 2026</div>
+      <div class="tl-content">
+        <h4>Assistente de Logística – Transporte</h4>
+        <div class="tl-co">R. Damásio Distribuidora de Motopeças — Teresina, PI</div>
+        <p>Dashboards Power BI com KPIs semanais. Auditoria de fretes com Lean Six Sigma — inconsistências reduzidas em 50%. Processamento de pagamentos de 15 para 5 dias (-67%). Expansão logística com 3 novos CDs. Implantação de same-day em +200 municípios e 13+ estados.</p>
+        <div class="tl-tags"><span class="tl-tag">Power BI</span><span class="tl-tag">Lean Six Sigma</span><span class="tl-tag">Kanban</span><span class="tl-tag">BPMN</span><span class="tl-tag">Expansão Logística</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">Jan 2022 – Out 2024</div>
+      <div class="tl-content">
+        <h4>Auxiliar de Logística – Transporte</h4>
+        <div class="tl-co">R. Damásio Distribuidora de Motopeças — Teresina, PI</div>
+        <p>Gestão analítica de custos de fretes viabilizando +25 parcerias comerciais. Otimização de rotas com redução de 22% no lead time. Controle de repasses com conformidade legal e contratual rigorosa.</p>
+        <div class="tl-tags"><span class="tl-tag">Análise de Custos</span><span class="tl-tag">Otimização de Rotas</span><span class="tl-tag">Compliance</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-date">2017 – 2024</div>
+      <div class="tl-content">
+        <h4>Bacharelado em Engenharia Mecânica</h4>
+        <div class="tl-co">Universidade Federal do Piauí (UFPI)</div>
+        <p>Monitor acadêmico em 2 disciplinas. Base sólida em ciências exatas, modelagem e análise de sistemas — fundação para toda a atuação em dados, logística e ensino.</p>
+        <div class="tl-tags"><span class="tl-tag">Monitor Acadêmico</span><span class="tl-tag">Exatas</span><span class="tl-tag">Engenharia Mecânica</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ CERTIFICAÇÕES ═══ -->
+<section id="certificacoes">
+  <div class="stag">Formação Contínua</div>
+  <h2 class="stitle reveal">Certificações &amp;<br/><em>Especializações.</em></h2>
+
+  <div class="cert-grid reveal">
+    <div class="cert-group">
+      <div class="cert-gtitle">🎓 Pós-Graduações em Andamento</div>
+      <div class="cert-item"><strong>MBA — Lean Six Sigma e Excelência Operacional</strong>FM2S Educação · Fev 2026 – Fev 2027</div>
+      <div class="cert-item"><strong>Pós-Grad. — Gestão de Projetos</strong>IPOS Instituto de Especialização · Mar 2026 – Fev 2027</div>
+      <div class="cert-item"><strong>Pós-Grad. — Análise de Dados</strong>Descomplica Faculdade Digital · Jan 2026 – Jul 2026</div>
+      <div class="cert-item"><strong>Bacharelado em Engenharia Mecânica</strong>UFPI · 2017 – 2024</div>
+    </div>
+    <div class="cert-group">
+      <div class="cert-gtitle">⚙️ Gestão de Processos &amp; Projetos</div>
+      <div class="cert-item"><strong>Fundamentos de Gerenciamento de Projetos</strong>Grupo Voitto · Nov 2025</div>
+      <div class="cert-item"><strong>White Belt — Lean Six Sigma</strong>Grupo Voitto · Nov 2025</div>
+      <div class="cert-item"><strong>Lean Manufacturing</strong>Grupo Voitto · Nov 2025</div>
+      <div class="cert-item"><strong>Fundamentos de MS Project</strong>Grupo Voitto · Nov 2025</div>
+      <div class="cert-item"><strong>Agile Scrum</strong>Grupo Voitto · Set 2020</div>
+    </div>
+    <div class="cert-group">
+      <div class="cert-gtitle">📊 BI, Tecnologia &amp; Desenvolvimento</div>
+      <div class="cert-item"><strong>Power BI — Do Zero ao Profissional</strong>Tesla / Prime Cursos · Set 2024</div>
+      <div class="cert-item"><strong>Excel Completo</strong>Tesla Treinamentos · Ago 2024</div>
+      <div class="cert-item"><strong>IA para Engenharia</strong>Tesla Treinamentos · Nov 2025</div>
+      <div class="cert-item"><strong>Gestão Logística · Oratória · Produtividade</strong>FM2S / Tesla · 2024–2025</div>
+      <div class="cert-item"><strong>NR-05 (CIPA) · NR-23 (Brigada de Incêndio)</strong>R. Damásio · 2025</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ PORTFÓLIO ═══ -->
+<section id="portfolio">
+  <div class="stag">Entregáveis Reais</div>
+  <h2 class="stitle reveal">Projetos &amp;<br/><em>Resultados.</em></h2>
+  <p class="sdesc reveal">Não é teoria. São soluções construídas e aplicadas — dados reais, decisões reais.</p>
+
+  <div class="pf-grid reveal">
+
+    <!-- P1 — IA INSIGHTS -->
+    <div class="pf-card pf-feat">
+      <div class="pf-head">
+        <div>
+          <div class="pf-tag r">🤖 IA Generativa · Gemini &amp; Claude</div>
+          <h3>Motor de Insights com IA para Indicadores de Performance</h3>
+        </div>
+        <div class="pf-result">
+          <span class="pf-metric">80%</span>
+          <span class="pf-mlbl">Redução no<br/>tempo de análise</span>
+        </div>
+      </div>
+      <p>Solução que integra <strong style="color:var(--white)">Google Gemini</strong> e <strong style="color:var(--white)">Claude (Anthropic)</strong> em uma pipeline de raciocínio relacional estruturado, projetada para analisar ocorrências em KPIs operacionais de logística. O sistema correlaciona indicadores, identifica causas raiz e sugere planos de ação priorizados — entregando inteligência analítica de alta fidelidade direto para a tomada de decisão.</p>
+      <div class="pf-feats">
+        <div class="pf-feat-item"><span class="pf-feat-icon">🔗</span><div><strong>Raciocínio Relacional entre KPIs</strong><span>Correlaciona automaticamente indicadores — desvio em um gera análise de efeito cascata nos demais</span></div></div>
+        <div class="pf-feat-item"><span class="pf-feat-icon">📋</span><div><strong>Outputs Estruturados</strong><span>Diagnóstico + causa raiz provável + plano de ação — prontos para apresentação executiva</span></div></div>
+        <div class="pf-feat-item"><span class="pf-feat-icon">⚡</span><div><strong>80% Menos Tempo Analítico</strong><span>Horas de análise manual transformadas em minutos com consistência e profundidade técnica</span></div></div>
+        <div class="pf-feat-item"><span class="pf-feat-icon">🎯</span><div><strong>Foco em Melhoria Contínua</strong><span>Orientado a saneamento de ocorrências e suporte a decisões de qualidade em Supply Chain</span></div></div>
+      </div>
+      <div class="pf-stack">
+        <span>Gemini API</span><span>Claude API</span><span>IA Generativa</span><span>KPIs Logísticos</span><span>Supply Chain</span><span>Análise de Causas</span>
+      </div>
+    </div>
+
+    <!-- P2 — POWER BI -->
+    <div class="pf-card pf-feat r2">
+      <div class="pf-head">
+        <div>
+          <div class="pf-tag r">📊 Power BI · DAX · Modelagem Dimensional</div>
+          <h3>Dashboard de Performance Comercial — Análise Executiva de Faturamento</h3>
+        </div>
+        <div class="pf-result">
+          <span class="pf-metric">7+</span>
+          <span class="pf-mlbl">KPIs executivos<br/>integrados</span>
+        </div>
+      </div>
+      <p>Dashboard interativo desenvolvido em <strong style="color:var(--white)">Power BI</strong> para análise real de performance comercial — da modelagem de dados à visualização executiva. KPIs: <strong style="color:var(--white)">Receita Bruta, Receita Líquida, Margem, % Margem, Ticket Médio, PMV e Share</strong>. Decomposição por marca, categoria, subcategoria, produto e canal de venda. Foco analítico: responder perguntas de negócio, não apenas exibir números.</p>
+      <div class="pf-feats">
+        <div class="pf-feat-item"><span class="pf-feat-icon">🧱</span><div><strong>Modelagem Dimensional</strong><span>Tabelas fato e dimensão — estrutura escalável e performática para análise</span></div></div>
+        <div class="pf-feat-item"><span class="pf-feat-icon">⚙️</span><div><strong>DAX Avançado</strong><span>Medidas calculadas e dinâmicas para KPIs, variações comparativas e cálculos de margem</span></div></div>
+        <div class="pf-feat-item"><span class="pf-feat-icon">🌳</span><div><strong>Árvore de Decomposição</strong><span>Drill-down investigativo — identifica raízes de variações em faturamento e margem</span></div></div>
+        <div class="pf-feat-item"><span class="pf-feat-icon">❓</span><div><strong>Perguntas de Negócio Respondidas</strong><span>Impacto de marcas, influência de descontos na margem, maiores oportunidades e quedas</span></div></div>
+      </div>
+      <div class="pf-stack" style="margin-bottom:1.4rem">
+        <span>Power BI</span><span>DAX</span><span>Modelagem Dimensional</span><span>Medidas Dinâmicas</span><span>Árvore de Decomposição</span><span>Controladoria</span>
+      </div>
+      <a href="https://app.powerbi.com/view?r=eyJrIjoiZWJhODIyZTAtOGM0My00NDdmLTllYTItMjI0ZjRjYjBlNDU5IiwidCI6IjAzMzFjMzU4LWYzZWEtNDliNy05MjQ4LTUwMWQwMzFkMjgwZiJ9" target="_blank" class="btn btn-red" style="font-size:.76rem;padding:.68rem 1.5rem">📊 Ver Dashboard ao Vivo</a>
+    </div>
+
+    <!-- P3 — VIABILIDADE IMÓVEL -->
+    <div class="pf-card pf-feat b">
+      <div class="pf-head">
+        <div>
+          <div class="pf-tag b">🏠 Inteligência Financeira · HTML · MCMV</div>
+          <h3>Plataforma de Viabilidade e Proposta de Financiamento Imobiliário</h3>
+        </div>
+        <div class="pf-result">
+          <span class="pf-metric pf-metric b">53%</span>
+          <span class="pf-mlbl">Redução no custo<br/>mensal pós-chaves</span>
+        </div>
+      </div>
+      <p>Plataforma web completa de análise de viabilidade financeira para aquisição de imóvel via <strong style="color:var(--white)">MCMV Faixa 1</strong>, desenvolvida inteiramente em HTML. Caso fictício do casal Lucas &amp; Mariana Costa — renda R$ 2.700, subsídio R$ 47.500, financiamento R$ 187.800 em 360x a 5% a.a. Fluxo de caixa em 4 fases, 5 pontos de inflexão e quitação em ~10 anos. Arquitetura projetada para expansão com <strong style="color:var(--white)">Machine Learning</strong>.</p>
+      <div class="pf-feats">
+        <div class="pf-feat-item"><span class="pf-feat-icon">💰</span><div><strong>Simulação Financeira Completa</strong><span>Parcelas PRICE, FGTS, subsídio MCMV, opções de entrada e comprometimento de renda</span></div></div>
+        <div class="pf-feat-item"><span class="pf-feat-icon">📈</span><div><strong>Fluxo de Caixa em 4 Fases</strong><span>Da assinatura até quitação — cada ponto de inflexão com valores reais de ganho e liberação</span></div></div>
+        <div class="pf-feat-item"><span class="pf-feat-icon">🤝</span><div><strong>Ferramenta para Corretores</strong><span>Script de perguntas ao cliente, checklist de dados e resumo gerencial exportável</span></div></div>
+        <div class="pf-feat-item"><span class="pf-feat-icon">🤖</span><div><strong>Roadmap com Machine Learning</strong><span>Expansão planejada: precificação de imóveis, score de risco de crédito e otimização de portfólio</span></div></div>
+      </div>
+      <div class="pf-stack" style="margin-bottom:1.4rem">
+        <span>HTML/CSS/JS</span><span>MCMV Faixa 1</span><span>Simulação PRICE</span><span>Fluxo de Caixa</span><span>FGTS</span><span>Machine Learning (roadmap)</span>
+      </div>
+      <a href="https://lighthearted-sherbet-e09eb1.netlify.app/" target="_blank" class="btn btn-blue" style="font-size:.76rem;padding:.68rem 1.5rem">🔗 Ver Projeto ao Vivo</a>
+    </div>
+
+    <!-- CARD MENOR 1 -->
+    <div class="pf-card">
+      <div class="pf-tag r">📊 Power BI · Lean Six Sigma</div>
+      <h3>Auditoria e Controle de Fretes</h3>
+      <p>Dashboards gerenciais com auditoria estruturada via Lean Six Sigma, eliminando inconsistências financeiras nos repasses logísticos e aumentando a segurança operacional.</p>
+      <div class="pf-result">
+        <span class="pf-metric" style="font-size:2.2rem;color:var(--red)">50%</span>
+        <span class="pf-mlbl">Inconsistências eliminadas</span>
+      </div>
+    </div>
+
+    <!-- CARD MENOR 2 -->
+    <div class="pf-card">
+      <div class="pf-tag b">⚡ BPMN · AS-IS / TO-BE</div>
+      <h3>Otimização de Fluxo Financeiro</h3>
+      <p>Mapeamento e redesenho de 4 processos via BPMN com Lean Six Sigma, eliminando retrabalhos sistêmicos e reduzindo o ciclo de pagamentos de 15 para 5 dias.</p>
+      <div class="pf-result">
+        <span class="pf-metric" style="font-size:2.2rem">67%</span>
+        <span class="pf-mlbl">Redução no processamento</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ CONTATO ═══ -->
+<section id="contato" class="contact-sec">
+  <div class="stag">Contato</div>
+  <h2 class="stitle reveal">Me conta o que<br/>está te <em>travando.</em></h2>
+  <p class="sdesc reveal">Seja aula, mentoria, análise de dados ou projeto de engenharia — a gente destrava juntos.</p>
+
+  <div class="contact-inner reveal">
+    <div>
+      <div class="c-item"><span class="c-icon">📱</span><div><div class="c-lbl">WhatsApp</div><div class="c-val"><a href="https://wa.me/5511914842672" target="_blank">(11) 9 1484-2672</a></div></div></div>
+      <div class="c-item"><span class="c-icon">✉️</span><div><div class="c-lbl">E-mail</div><div class="c-val"><a href="mailto:fabriciofss@ufpi.edu.br">fabriciofss@ufpi.edu.br</a></div></div></div>
+      <div class="c-item"><span class="c-icon">💼</span><div><div class="c-lbl">LinkedIn</div><div class="c-val"><a href="https://www.linkedin.com/in/engmec-fabricio-soares" target="_blank">engmec-fabricio-soares</a></div></div></div>
+      <div class="c-item"><span class="c-icon">📄</span><div><div class="c-lbl">Currículo</div><div class="c-val"><a href="curriculo-fabricio-sousa.pdf" download>Baixar PDF</a></div></div></div>
+      <div class="c-item"><span class="c-icon">📍</span><div><div class="c-lbl">Localização</div><div class="c-val">Barueri, SP</div></div></div>
+    </div>
+
+    <div class="cta-box">
+      <div class="stag" style="margin-bottom:.4rem">Chame agora</div>
+      <div class="cta-num">(11) 9 1484-2672</div>
+      <p class="cta-sub">Dados · Aulas · Mentoria · Engenharia</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/5511914842672" target="_blank" class="btn btn-red">💬 Abrir no WhatsApp</a>
+        <a href="https://www.linkedin.com/in/engmec-fabricio-soares" target="_blank" class="btn btn-blue">in Conectar no LinkedIn</a>
+        <a href="curriculo-fabricio-sousa.pdf" download class="btn btn-out">↓ Baixar Currículo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="f-logo">FABRÍCIO<span>.</span>SS</div>
+  <div class="f-copy">© 2026 Fabrício Soares de Sousa · Engenheiro de Analytics · Barueri, SP</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => {
+      if(e.isIntersecting){
+        setTimeout(()=>e.target.classList.add('visible'), i*75);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin:'0px 0px -40px 0px' });
+  reveals.forEach(el=>obs.observe(el));
+  setTimeout(()=>{
+    reveals.forEach(el=>{
+      if(el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 100);
+  const secs = document.querySelectorAll('section[id]');
+  const lnks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130) cur=s.getAttribute('id')});
+    lnks.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--white)':''});
+  });
+</script>
+</body>
+</html>
