@@ -3,7 +3,7 @@
 > Site pessoal desenvolvido em HTML puro com identidade visual dark, tipografia editorial  
 > e animações de scroll — reunindo trajetória, serviços, projetos e contato em um único lugar.
 
-[![Live Demo](https://img.shields.io/badge/🔗_Ver_Site-Netlify-00C7B7?style=for-the-badge)](https://fabricio-soares.netlify.app/)
+[![Live Demo](https://img.shields.io/badge/🔗_Ver_Site-Netlify-00C7B7?style=for-the-badge)](https://fabricio-soares-analytics.netlify.app/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/engmec-fabricio-soares)
 [![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)]()
 [![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)]()
